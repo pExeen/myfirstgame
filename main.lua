@@ -3,21 +3,19 @@ require "controller"
 require "update"
 require "draw"
 function love.load()
-	failsound = love.audio.newSource("fail-sound.wav", "static")
-	winsound = love.audio.newSource("win-sound.mp3", "static")
+	setRandomColor()
+	failsound = love.audio.newSource"fail-sound.wav"
+	winsound = love.audio.newSource"win-sound.mp3"
 	gameRunning = 0
 	love.mouse.setVisible(false)
 	squareW = 40
-	screenW = love.graphics.getWidth()
-	screenH = love.graphics.getHeight()
+	screenW, screenH = love.graphics.getDimensions()
 	squares = {}
+	squareW = screenH / 27
 	score = 0
-	screenWMid = screenW / 2
-	screenHMid = screenH / 2
-	x = screenWMid
-	y = screenHMid
-	gameover = false
-	circleRadius = 10
+	screenWMid, screenHMid = screenW / 2, screenH / 2
+	x , y = screenWMid, screenHMid
+	circleRadius = squareW / 4
 	speed = 100
 	t = 0
 	randomMap(squareW, screenW, screenH, screenWMid, screenHMid)
@@ -28,28 +26,15 @@ function love.draw()
 	drawGame(r, g, b, x, y, circleRadius, squareW, score, squares)  
 end
 function love.update(dt)
-	keyboardControll(dt, speed)
-	gameover = collisionDetectionSquares()
-	win = collisionDetectionBorders()
+	t = t + dt
 
-	if gameover then
-		failsound:play()
-		reset()
-		score = 0
-	end
-	if win then
-		winsound:play()
-		score = score + 1
-		reset()
-	end
+	keyboardControll(dt, speed)
 
 	changeSquare(squareW, screenW, screenH, screenWMid, screenHMid)
 
-	t = colorChange(t, dt)
+	changeColor(dt)
 
-	drawGame(r, g, b, x, y, circleRadius, squareW, score, squares)
-
-	drawMenu (gameRunning)
+	updateCollision()
 
 end
 
@@ -77,4 +62,16 @@ function love.keyreleased(key)
 	if key == "lshift" then
 		speed = 100
 	end
+end
+
+function gameover()
+	failsound:play()
+	reset()
+	score = 0
+end
+
+function win()
+	winsound:play()
+	score = score + 1
+	reset()
 end
