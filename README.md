@@ -41,8 +41,8 @@ Execute :
 
 and copy this : 
 
-# alias to love
-alias love="/Applications/love.app/Contents/MacOS/love"
+	# alias to love
+	alias love="/Applications/love.app/Contents/MacOS/love"
 
 Now you can run the game with :
 
