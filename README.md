@@ -1,13 +1,18 @@
 # myfirstgame
 This is my first game. For the moment it is a Labyrint. :)
 
+
+
 First you need Love2D to play the games :
 
 On Ubuntu download the .deb file and install it.
 
+
 On Windows download the installer and install the programm.
 
+
 On Mac download the app and put it in the Application floder.
+
 
 ______________________________________________________________________
 
