@@ -48,7 +48,7 @@ function love.keypressed(k)
 			gameRunning = 0
 		else
   			love.event.quit()
-  		end
+		end
 	end
 	if k == 'r' then
   		reset()
@@ -60,6 +60,11 @@ function love.keypressed(k)
 		menu = 0
 		gameRunning = 1
 	end
+end
+
+function love.mousepressed(x, y, button, isTouch)
+	menu = 0
+	gameRunning = 1
 end
 
 function love.keyreleased(key)
