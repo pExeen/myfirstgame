@@ -17,20 +17,24 @@ function love.load()
 	x , y = screenWMid, screenHMid
 	circleRadius = squareW / 4
 	speed = 100
-	t = 0
+	timelimit = 0.1
+	time = timelimit + 1
 	randomMap(squareW, screenW, screenH, screenWMid, screenHMid)
 end
 
 function love.draw()
-	drawMenu (gameRunning)	
-	drawGame(r, g, b, x, y, circleRadius, squareW, score, squares)  
+	drawMenu (gameRunning)
+	drawGame(r, g, b, x, y, circleRadius, squareW, score, squares)
 end
 function love.update(dt)
-	t = t + dt
+	time = time+ dt
 
 	keyboardControll(dt, speed)
 
-	changeSquare(squareW, screenW, screenH, screenWMid, screenHMid)
+	if time > timelimit then
+		changeSquare(squareW, screenW, screenH, screenWMid, screenHMid)
+		time = 0
+	end
 
 	changeColor(dt)
 
@@ -66,6 +70,7 @@ end
 
 function gameover()
 	failsound:play()
+	timelimit = 0.1
 	reset()
 	score = 0
 end
@@ -73,5 +78,6 @@ end
 function win()
 	winsound:play()
 	score = score + 1
+	timelimit = timelimit / 2
 	reset()
 end
